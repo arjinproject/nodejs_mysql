@@ -2,6 +2,7 @@ const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const User = db.user;
 const Role = db.role;
+const Note = db.note;
 
 const Op = db.Sequelize.Op;
 
@@ -9,9 +10,9 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
 exports.signup = (req, res) => {
-	// Save User to Database
-	console.log("Processing func -> SignUp");
-	
+	// Veritabanına kullanıcı kaydı
+	console.log("Kayıt işlemi yapılıyor");
+
 	User.create({
 		name: req.body.name,
 		username: req.body.username,
@@ -19,15 +20,15 @@ exports.signup = (req, res) => {
 		password: bcrypt.hashSync(req.body.password, 8)
 	}).then(user => {
 		Role.findAll({
-		  where: {
-			name: {
-			  [Op.or]: req.body.roles
+			where: {
+				name: {
+					[Op.or]: req.body.roles
+				}
 			}
-		  }
 		}).then(roles => {
 			user.setRoles(roles).then(() => {
-				res.send("User registered successfully!");
-            });
+				res.send("Kullanıcı başarıyla kaydedildi!");
+			});
 		}).catch(err => {
 			res.status(500).send("Error -> " + err);
 		});
@@ -37,36 +38,38 @@ exports.signup = (req, res) => {
 }
 
 exports.signin = (req, res) => {
-	console.log("Sign-In");
-	
+	console.log("Giriş Yapılıyor...");
+
+
 	User.findOne({
 		where: {
-			username: req.body.username
+			email: req.body.email
 		}
 	}).then(user => {
+		// console.log(user);
 		if (!user) {
-			return res.status(404).send('User Not Found.');
+			return res.status(400).send('Kullanıcı bulunamadı.');
 		}
 
 		var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 		if (!passwordIsValid) {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
 		}
-		
+
 		var token = jwt.sign({ id: user.id }, config.secret, {
-		  expiresIn: 86400 // expires in 24 hours
+			expiresIn: 86400 // expires in 24 hours
 		});
-		
+
 		res.status(200).send({ auth: true, accessToken: token });
-		
 	}).catch(err => {
-		res.status(500).send('Error -> ' + err);
+		res.status(500).send('Hata -> ' + err);
+		console.log(err);
 	});
 }
 
 exports.userContent = (req, res) => {
 	User.findOne({
-		where: {id: req.userId},
+		where: { id: req.userId },
 		attributes: ['name', 'username', 'email'],
 		include: [{
 			model: Role,
@@ -77,12 +80,12 @@ exports.userContent = (req, res) => {
 		}]
 	}).then(user => {
 		res.status(200).json({
-			"description": "User Content Page",
+			"description": "Kullanıcı Sayfasına Hoş Geldiniz",
 			"user": user
 		});
 	}).catch(err => {
 		res.status(500).json({
-			"description": "Can not access User Page",
+			"description": "Kullanıcı sayfasına erişiminiz yoktur.",
 			"error": err
 		});
 	})
@@ -90,7 +93,7 @@ exports.userContent = (req, res) => {
 
 exports.adminBoard = (req, res) => {
 	User.findOne({
-		where: {id: req.userId},
+		where: { id: req.userId },
 		attributes: ['name', 'username', 'email'],
 		include: [{
 			model: Role,
@@ -101,20 +104,78 @@ exports.adminBoard = (req, res) => {
 		}]
 	}).then(user => {
 		res.status(200).json({
-			"description": "Admin Board",
+			"description": "Admin Sayfasına Hoş Geldiniz",
 			"user": user
 		});
 	}).catch(err => {
 		res.status(500).json({
-			"description": "Can not access Admin Board",
+			"description": "Admin sayfasına erişiminiz yoktur.",
 			"error": err
 		});
 	})
 }
 
+// note ekleme
+exports.noteAdd = (req, res) => {
+	// Veritabanına kullanıcı kaydı
+	console.log("Processing func -> SignUp");
+
+	Note.create({
+		title: req.body.title,
+		detail: req.body.detail,
+	}).then(note => {
+		res.send("Not başarıyla kaydedildi!");
+	}).catch(err => {
+		res.status(500).send("Hata! Error -> " + err);
+	})
+}
+
+exports.noteList = (req, res) => {
+	Note.findAll()
+		.then(note =>
+			res.json(note)
+		)
+}
+
+// not görüntüleme fonksiyonu
+exports.noteView = function (req, res) {
+	Note.findOne({
+		where: { id: req.params.id }
+	}).then(note =>
+		res.json(note)
+	)
+}
+
+// not güncelleme fonksiyonu
+exports.noteUpdate = function (req, res) {
+	Note.update(
+		{
+			detail: req.body.detail,
+			title: req.body.title,
+
+		},
+		{
+			where: { id: req.params.id }
+		}
+	).then(note =>
+		res.json(note)
+	).catch(err => {
+		res.status(500).send("Hata! Error -> " + err);
+	})
+}
+
+// not silme fonksiyonu
+exports.noteDelete = function (req, res) {
+	Note.destroy({
+		where: { id: req.params.id }
+	}).then(note =>
+		res.json("Kayıt başarıyla silindi.")
+	)
+}
+
 exports.managementBoard = (req, res) => {
 	User.findOne({
-		where: {id: req.userId},
+		where: { id: req.userId },
 		attributes: ['name', 'username', 'email'],
 		include: [{
 			model: Role,
@@ -125,12 +186,12 @@ exports.managementBoard = (req, res) => {
 		}]
 	}).then(user => {
 		res.status(200).json({
-			"description": "Management Board",
+			"description": "Yönetim Paneli",
 			"user": user
 		});
 	}).catch(err => {
 		res.status(500).json({
-			"description": "Can not access Management Board",
+			"description": "Yönetim paneline erişiminiz yoktur.",
 			"error": err
 		});
 	})
