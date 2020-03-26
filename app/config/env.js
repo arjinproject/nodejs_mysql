@@ -1,14 +1,14 @@
 const env = {
-  database: 'testdb',
+  database: 'njmapidm',
   username: 'root',
-  password: '12345',
+  password: 'hmt123456',
   host: 'localhost',
   dialect: 'mysql',
   pool: {
 	  max: 5,
 	  min: 0,
 	  acquire: 30000,
-	  idle: 10000
+	  idle: 1
   }
 };
  

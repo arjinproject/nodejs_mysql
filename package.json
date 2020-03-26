@@ -12,7 +12,7 @@
     "url": "git+https://github.com/hmtsyrk/NodeJS_JWT_MySQL_Sequelize_API.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Hamit Seyrek <hmtsyrk@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hmtsyrk/NodeJS_JWT_MySQL_Sequelize_API/issues"
