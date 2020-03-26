@@ -3,6 +3,8 @@ NodeJS, JWT, Sequelize, Mysql CRUD
 
 Nodejs ile RestFul api geliştirme
 
+********************************************************************************************************
+
 
 not ekleme-silme güncelleme işlemleri oturum açılırken alınan token ile yetkilendirme
 yapılarak işlemler yapılmıştır.
@@ -84,3 +86,9 @@ Put
 	"password": "123456"
 
 }
+
+*** Headers kısmında 
+
+x-access-token: [giriş yaparken alınan token]
+
+********************************************************************************************************
