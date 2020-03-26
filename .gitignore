@@ -7,7 +7,7 @@
 # dependencies
 /node_modules
 
-# production
+# productionn
 /build
 
 npm-debug.log*
