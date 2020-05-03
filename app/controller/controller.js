@@ -12,7 +12,7 @@ var bcrypt = require('bcryptjs');
 exports.signup = (req, res) => {
 	// Veritabanına kullanıcı kaydı
 	console.log("Kayıt işlemi yapılıyor");
-
+console.log(req.body.roles);
 	User.create({
 		name: req.body.name,
 		username: req.body.username,
@@ -21,15 +21,18 @@ exports.signup = (req, res) => {
 	}).then(user => {
 		Role.findAll({
 			where: {
-				name: {
-					[Op.or]: req.body.roles
-				}
+				name:  req.body.roles
+				
 			}
 		}).then(roles => {
+			var token = jwt.sign({ id: user.id }, config.secret, {
+				expiresIn: 86400 // expires in 24 hours
+			});
 			user.setRoles(roles).then(() => {
-				res.send("Kullanıcı başarıyla kaydedildi!");
+				res.send({ auth: true, accessToken: token });
 			});
 		}).catch(err => {
+			console.log("object");
 			res.status(500).send("Error -> " + err);
 		});
 	}).catch(err => {

@@ -23,7 +23,7 @@ Oluşturulan servisler şu şekildedir.
 
 	"email": "user1@gmail.com",
 
-	"roles": ["user"],
+	"roles": ["user"],  // admin ve pm rolleri de var
 
 	"password": "123456"
 
@@ -36,13 +36,7 @@ Oluşturulan servisler şu şekildedir.
 
 {
 
-	"name": "user1",
-
-	"username": "user1",
-
 	"email": "user1@gmail.com",
-
-	"roles": ["user"],     // admin ve pm rolleri de var
 
 	"password": "123456"
 
