@@ -3,7 +3,7 @@ NodeJS, JWT, Sequelize, Mysql CRUD
 
 Nodejs ile RestFul api geliştirme
 
-*********************************************************************************************************
+**********************************************************************************************************
 
 
 not ekleme-silme güncelleme işlemleri oturum açılırken alınan token ile yetkilendirmeler sayesinde yapılmaktadır.
