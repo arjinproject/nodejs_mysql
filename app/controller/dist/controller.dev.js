@@ -35,7 +35,7 @@ exports.signup = function (req, res) {
       });
       user.setRoles(roles).then(function () {
         res.send({
-          auth: true,
+          status: true,
           accessToken: token
         });
       });
@@ -64,7 +64,7 @@ exports.signin = function (req, res) {
 
     if (!passwordIsValid) {
       return res.status(401).send({
-        auth: false,
+        status: false,
         accessToken: null,
         reason: "Invalid Password!"
       });
@@ -77,7 +77,7 @@ exports.signin = function (req, res) {
 
     });
     res.status(200).send({
-      auth: true,
+      status: true,
       accessToken: token
     });
   })["catch"](function (err) {

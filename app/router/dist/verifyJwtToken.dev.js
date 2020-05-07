@@ -14,7 +14,7 @@ verifyToken = function verifyToken(req, res, next) {
 
   if (!token) {
     return res.status(403).send({
-      auth: false,
+      status: false,
       message: 'Geçersiz token...'
     });
   }
@@ -22,7 +22,7 @@ verifyToken = function verifyToken(req, res, next) {
   jwt.verify(token, config.secret, function (err, decoded) {
     if (err) {
       return res.status(500).send({
-        auth: false,
+        status: false,
         message: 'İşlem başarısız. Hata -> ' + err
       });
     }

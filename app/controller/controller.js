@@ -28,7 +28,7 @@ console.log(req.body.roles);
 				expiresIn: 86400 // expires in 24 hours
 			});
 			user.setRoles(roles).then(() => {
-				res.send({ auth: true, accessToken: token });
+				res.send({ status: true, accessToken: token });
 			});
 		}).catch(err => {
 			console.log("object");
@@ -55,14 +55,14 @@ exports.signin = (req, res) => {
 
 		var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 		if (!passwordIsValid) {
-			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
+			return res.status(401).send({ status: false, accessToken: null, reason: "Invalid Password!" });
 		}
 
 		var token = jwt.sign({ id: user.id }, config.secret, {
 			expiresIn: 86400 // expires in 24 hours
 		});
 
-		res.status(200).send({ auth: true, accessToken: token });
+		res.status(200).send({ status: true, accessToken: token });
 	}).catch(err => {
 		res.status(500).send('Hata -> ' + err);
 		console.log(err);

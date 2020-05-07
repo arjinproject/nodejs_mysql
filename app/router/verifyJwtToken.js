@@ -9,14 +9,14 @@ verifyToken = (req, res, next) => {
 	//   console.log(req.headers["x-access-token"]);
 	if (!token) {
 		return res.status(403).send({
-			auth: false, message: 'Geçersiz token...'
+			status: false, message: 'Geçersiz token...'
 		});
 	}
 
 	jwt.verify(token, config.secret, (err, decoded) => {
 		if (err) {
 			return res.status(500).send({
-				auth: false,
+				status: false,
 				message: 'İşlem başarısız. Hata -> ' + err
 			});
 		}
