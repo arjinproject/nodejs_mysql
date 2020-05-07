@@ -1,0 +1,1 @@
+"use strict";module.exports=function(e,t){return e.define("user",{name:{type:t.STRING},surname:{type:t.STRING},email:{type:t.STRING},password:{type:t.STRING},birthday:{type:t.STRING},phone:{type:t.STRING},gender:{type:t.STRING},guardian:{type:t.STRING},guardian_phone:{type:t.STRING},created_by_driverId:{type:t.INTEGER},is_active:{type:t.STRING},is_delete:{type:t.STRING}})};

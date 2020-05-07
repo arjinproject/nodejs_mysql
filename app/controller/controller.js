@@ -3,8 +3,6 @@ const config = require('../config/config.js');
 const User = db.user;
 const Role = db.role;
 
-const Op = db.Sequelize.Op;
-
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
@@ -14,7 +12,7 @@ exports.signup = (req, res) => {
 console.log(req.body.roles);
 	User.create({
 		name: req.body.name,
-		username: req.body.username,
+		surname: req.body.surname,
 		email: req.body.email,
 		password: bcrypt.hashSync(req.body.password, 8)
 	}).then(user => {
@@ -72,7 +70,7 @@ exports.signin = (req, res) => {
 exports.userContent = (req, res) => {
 	User.findOne({
 		where: { id: req.userId },
-		attributes: ['name', 'username', 'email'],
+		attributes: ['name', 'surname', 'email'],
 		include: [{
 			model: Role,
 			attributes: ['id', 'name'],
@@ -96,7 +94,7 @@ exports.userContent = (req, res) => {
 exports.adminBoard = (req, res) => {
 	User.findOne({
 		where: { id: req.userId },
-		attributes: ['name', 'username', 'email'],
+		attributes: ['name', 'surname', 'email'],
 		include: [{
 			model: Role,
 			attributes: ['id', 'name'],
@@ -121,7 +119,7 @@ exports.adminBoard = (req, res) => {
 exports.managementBoard = (req, res) => {
 	User.findOne({
 		where: { id: req.userId },
-		attributes: ['name', 'username', 'email'],
+		attributes: ['name', 'surname', 'email'],
 		include: [{
 			model: Role,
 			attributes: ['id', 'name'],

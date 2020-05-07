@@ -6,7 +6,6 @@ var config = require('../config/config.js');
 
 var User = db.user;
 var Role = db.role;
-var Op = db.Sequelize.Op;
 
 var jwt = require('jsonwebtoken');
 
@@ -18,7 +17,7 @@ exports.signup = function (req, res) {
   console.log(req.body.roles);
   User.create({
     name: req.body.name,
-    username: req.body.username,
+    surname: req.body.surname,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
   }).then(function (user) {
@@ -91,7 +90,7 @@ exports.userContent = function (req, res) {
     where: {
       id: req.userId
     },
-    attributes: ['name', 'username', 'email'],
+    attributes: ['name', 'surname', 'email'],
     include: [{
       model: Role,
       attributes: ['id', 'name'],
@@ -117,7 +116,7 @@ exports.adminBoard = function (req, res) {
     where: {
       id: req.userId
     },
-    attributes: ['name', 'username', 'email'],
+    attributes: ['name', 'surname', 'email'],
     include: [{
       model: Role,
       attributes: ['id', 'name'],
@@ -143,7 +142,7 @@ exports.managementBoard = function (req, res) {
     where: {
       id: req.userId
     },
-    attributes: ['name', 'username', 'email'],
+    attributes: ['name', 'surname', 'email'],
     include: [{
       model: Role,
       attributes: ['id', 'name'],

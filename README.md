@@ -6,9 +6,6 @@ Nodejs ile RestFul api geliştirme
 **********************************************************************************************************
 
 
-not ekleme-silme güncelleme işlemleri oturum açılırken alınan token ile yetkilendirmeler sayesinde yapılmaktadır.
-
-
 Oluşturulan servisler şu şekildedir.
 
 ********************************************************************************************************

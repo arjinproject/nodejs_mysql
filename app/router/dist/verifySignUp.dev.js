@@ -12,11 +12,12 @@ checkDuplicateUserNameOrEmail = function checkDuplicateUserNameOrEmail(req, res,
   // -> Kullanıcı adının var olup olmadığını kontrol et
   User.findOne({
     where: {
-      username: req.body.username
+      name: req.body.name,
+      surname: req.body.surname
     }
   }).then(function (user) {
     if (user) {
-      console.log(req.body.username);
+      console.log(req.body.name);
       res.status(400).send("Hata -> Bu kullanıcı adı kullanılmakta!");
       return;
     } // -> Mailin var olup olmadığını kontrol et
