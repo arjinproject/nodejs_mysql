@@ -6,6 +6,8 @@ const Role = db.role;
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
+let status;
+
 exports.signup = (req, res) => {
 	// Veritabanına kullanıcı kaydı
 	console.log("Kayıt işlemi yapılıyor");

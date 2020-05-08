@@ -11,6 +11,8 @@ var jwt = require('jsonwebtoken');
 
 var bcrypt = require('bcryptjs');
 
+var status;
+
 exports.signup = function (req, res) {
   // Veritabanına kullanıcı kaydı
   console.log("Kayıt işlemi yapılıyor");

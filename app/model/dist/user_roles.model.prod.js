@@ -1,0 +1,1 @@
+"use strict";module.exports=function(e,r){return e.define("user_roles",{driverId:{type:r.STRING},userId:{type:r.INTEGER},adminId:{type:r.INTEGER},roleId:{type:r.INTEGER}})};
