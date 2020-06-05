@@ -39,6 +39,7 @@ Oluşturulan servisler şu şekildedir.
 	"email": "user1@gmail.com",
 
 	"password": "123456"
+	
 
 }
 

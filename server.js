@@ -10,9 +10,11 @@ const db = require('./app/config/db.config.js');
 
 const Role = db.role;
   
-// force: true will drop the table if it already exists
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync with { force: true }');
+// force: true => tablolar her program çalıştırıldığında baştan oluşturuluyor.
+// force: false => tablolar eğer önceden yok iseler program çalıştırıldığında ilk defa oluşturuluyor.
+
+db.sequelize.sync({force: false}).then(() => {
+  console.log('create table sync { force: false }');
   initial();
 });
  

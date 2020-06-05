@@ -12,6 +12,5 @@ module.exports = (sequelize, Sequelize) => {
 		// 	defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
 		// }
 	});
-
 	return Note;
 }
