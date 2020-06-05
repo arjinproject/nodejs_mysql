@@ -44,7 +44,7 @@ Oluşturulan servisler şu şekildedir.
 }
 
 
-********************************************************************************************************
+***********************************************************************************************************
 
 3 - http://localhost:3000/notes => Not ekleme (POST) ve not listeleme (GET) işlemleri yapılabiliyor. Ekleme sadece Admin; görüntüleme herkese tanımlanmıştır.
 
