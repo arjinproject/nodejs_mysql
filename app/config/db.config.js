@@ -6,6 +6,7 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
   dialect: env.dialect,
 //   operatorsAliases: true, // eski sürümde vardı
  
+
   pool: {
     max: env.max,
     min: env.pool.min,
